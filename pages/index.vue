@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <p>The cute dog below</p>
+    <span>The cute dog below</span>
     <img :src="imgSrc" alt="" />
+
+    <button @click="getRandomDogImage">Get a picture of random dog</button>
   </div>
 </template>
 
@@ -13,6 +15,21 @@ export default {
     const imgSrc = response.data.message
 
     return { imgSrc }
+  },
+  data() {
+    return {
+      imgSrc: '',
+    }
+  },
+  methods: {
+    async getRandomDogImage() {
+      const response = await this.$axios.get(
+        'https://dog.ceo/api/breeds/image/random'
+      )
+      const result = response.data.message
+
+      this.imgSrc = result
+    },
   },
 }
 </script>
